@@ -14,7 +14,7 @@
             //Console.WriteLine(bst.Root.Left.Key);
             //Console.WriteLine(bst.Root.Right.Key);
 
-            Console.WriteLine("Create Binary Search Tree as shown in figure");
+            Console.WriteLine("\nCreate Binary Search Tree as shown in figure\n");
             BinarySearchTree<int> bst = new BinarySearchTree<int>(56);
             bst.Insert(30);
             bst.Insert(70);
@@ -30,6 +30,8 @@
             bst.Insert(67);
             bst.Display();
             bst.GetSize();
+            bool result = bst.Search(63, bst);
+            Console.WriteLine(result);
         }
     }
 }

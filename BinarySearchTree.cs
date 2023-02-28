@@ -60,5 +60,24 @@ namespace BSTProblems
                 this.rightTree.Display();
             }
         }
+
+        public bool Search(T element, BinarySearchTree<T> node)
+        {
+            if (node == null)
+                return false;
+            if (node.NodeData.Equals(element))
+            {
+                Console.WriteLine($"Found the element {node.NodeData} in BST");
+                result = true;
+            }
+            else
+                Console.WriteLine("Current element is {0} in BST", node.NodeData);
+            if (element.CompareTo(node.NodeData) < 0)
+                Search(element, node.leftTree);
+            if (element.CompareTo(node.NodeData) > 0)
+                Search(element, node.rightTree);
+            return result;
+
+        }
     }
 }
