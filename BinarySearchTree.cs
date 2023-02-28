@@ -6,65 +6,59 @@ using System.Threading.Tasks;
 
 namespace BSTProblems
 {
-        public interface INode<T> where T : IComparable<T>
+    class BinarySearchTree<T> where T : IComparable<T>
+    {
+        public T NodeData { get; set; }
+        public BinarySearchTree<T> leftTree { get; set; }
+        public BinarySearchTree<T> rightTree { get; set; }
+        public BinarySearchTree(T nodeData)
         {
-            T Key { get; set; }
-            INode<T> Left { get; set; }
-            INode<T> Right { get; set; }
+            this.NodeData = nodeData;
+            this.rightTree = null;
+            this.leftTree = null;
         }
-
-        public class BinaryNode<T> : INode<T> where T : IComparable<T>
+        static int leftCount = 0, rightCount = 0;
+        bool result = false;
+        public void Insert(T item)
         {
-            public T Key { get; set; }
-            public INode<T> Left { get; set; }
-            public INode<T> Right { get; set; }
-
-            public BinaryNode(T key)
+            T currentNodeValue = this.NodeData;
+            if ((currentNodeValue.CompareTo(item)) > 0)
             {
-                Key = key;
-                Left = null;
-                Right = null;
-            }
-        }
-
-        public class BinarySearchTree<T> where T : IComparable<T>
-        {
-            public INode<T> Root { get; set; }
-
-            public BinarySearchTree(T key)
-            {
-                Root = new BinaryNode<T>(key);
-            }
-
-            public void AddNode(T key)
-            {
-                AddNode(Root, key);
-            }
-
-            private void AddNode(INode<T> node, T key)
-            {
-                if (key.CompareTo(node.Key) < 0)
+                if (this.leftTree == null)
                 {
-                    if (node.Left == null)
-                    {
-                        node.Left = new BinaryNode<T>(key);
-                    }
-                    else
-                    {
-                        AddNode(node.Left, key);
-                    }
+                    leftCount++;
+                    this.leftTree = new BinarySearchTree<T>(item);
                 }
                 else
+                    this.leftTree.Insert(item);
+            }
+            else
+            {
+                if (this.rightTree == null)
                 {
-                    if (node.Right == null)
-                    {
-                        node.Right = new BinaryNode<T>(key);
-                    }
-                    else
-                    {
-                        AddNode(node.Right, key);
-                    }
+                    rightCount++;
+                    this.rightTree = new BinarySearchTree<T>(item);
                 }
+                else
+                    this.rightTree.Insert(item);
             }
         }
+
+        public void GetSize()
+        {
+            Console.WriteLine("Size" + " " + (1 + leftCount + rightCount));
+        }
+        public void Display()
+        {
+            if (this.leftTree != null)
+            {
+                this.leftTree.Display();
+            }
+            Console.WriteLine(this.NodeData.ToString());
+            if (this.rightTree != null)
+            {
+                this.rightTree.Display();
+            }
+        }
+    }
 }
